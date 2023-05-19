@@ -1,4 +1,5 @@
 # Simple Shell
+![shell](https://github.com/sohilaabdallaa/simple_shell/assets/53753947/a0ffabd4-6333-4bb2-891d-57244541c0ff)
 
 ## Description
 This is a simple shell program written in C. It provides basic functionality for running and executing commands within a Unix-like environment.
