@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-extern char **environ;
+#include "shell.h"
 int countWords(char *line) {
     int numWords = 0;
     int inWord = 0;
@@ -22,8 +16,8 @@ int countWords(char *line) {
     return numWords;
 }
 
-int main() {
-
+int main()
+{
 char *buffer = NULL;
 char *line = NULL;
 char *token = NULL;
@@ -31,6 +25,7 @@ char **tokens = NULL;
 size_t bufsize = 0;
 int nword = 0;
 int i = 0;
+int lineNumber = 0;
 ssize_t nread = 0;
 pid_t childID;
 pid_t wpid;
@@ -38,15 +33,15 @@ int status;
 
 while(nread >= 0)
 {
-if (isatty(STDIN_FILENO))
-    write(STDOUT_FILENO, "($) ", 4);
+	lineNumber++;
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "($) ", 4);
 nread = getline(&buffer, &bufsize, stdin);
 if (nread == -1)
 {
-    if (isatty(STDIN_FILENO))
-        write(STDOUT_FILENO, "\n", 1);
-    perror("./hsh");
-    break;
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "\n", 1);
+	break;
 }
 /* remove the '/n' char from read line not from the buffer*/
 i = nread - 1;
@@ -66,7 +61,7 @@ token = strtok(line, " ");
 while (token != NULL)
 {
     tokens[i] = token;
-   printf("%s\n", tokens[i]);
+ /*  printf("%s\n", tokens[i]);*/
     token = strtok(NULL, " ");
     i++;
 }
@@ -77,7 +72,7 @@ childID = fork();
 if (childID == 0)
 {
     execve(tokens[0], tokens,environ);
-    perror("./hsh");
+    fprintf(stderr, "./hsh: %d:%s\n",lineNumber,strerror(errno));
     exit(EXIT_FAILURE);
 }
 else if (childID == -1)
