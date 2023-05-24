@@ -40,6 +40,7 @@ char *find_path(void);
 
 /* helper function for efficient memory deallocation */
 void free_memory_buffers(char **buf);
+int mysh_exit(void);
 
 /**
  * struct shel_built - struct to hold the build-in commands
