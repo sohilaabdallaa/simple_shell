@@ -2,9 +2,6 @@
 
 /**
  * main - Entry point for the program
- * @ac: the number of argument
- * @av: pointer of array of string
- * @envp: enviromnet vector
  * Return: Always 0 (Success)
  */
 
