@@ -21,8 +21,6 @@ void execution(char *conpath, char **arra, int lineNumber)
 	{
 		execve(conpath, arra, env);
 		fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
-		free(conpath);
-		free_memory_buffers(arra);
 		exit(98);
 	}
 	else

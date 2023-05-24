@@ -24,8 +24,8 @@ signal(SIGINT, handle_interrupt_signal);
 		lineNumber++, shell_info.line_count++;
 		display_command_prompt();
 		linesize = getline(&lline, &bufsize, stdin);
-		if (linesize < 0)
-			break;
+		if (linesize < 0 || checkspace(lline) == true)
+			continue;
 		if (lline[linesize - 1] == '\n')
 			lline[linesize - 1] = '\0';
 		commd = tokenize_user_input(lline);

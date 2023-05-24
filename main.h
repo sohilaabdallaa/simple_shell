@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <ctype.h>
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -37,6 +38,7 @@ char *_strchr(char *string, char chara);
 
 void execution(char *conpath, char **arra, int lineNumber);
 char *find_path(void);
+bool checkspace(char *line);
 
 /* helper function for efficient memory deallocation */
 void free_memory_buffers(char **buf);
