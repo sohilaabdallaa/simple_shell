@@ -27,3 +27,20 @@ char *find_path(void)
 	return (NULL);
 }
 
+/**
+ * checkspace - check if the whole line is only empty space.
+ * @lline : pointer to char input line.
+ * Return:true if all is space otherwise false.
+ */
+bool checkspace(char *lline)
+{
+	int i = 0;
+
+	while (lline[i])
+	{
+		if (!isspace(lline[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}

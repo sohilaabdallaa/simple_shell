@@ -10,5 +10,5 @@ void execute_exit_command(char **commd, char *lline)
 {
 	free(lline);
 	free_memory_buffers(commd);
-	exit(0);
+	mysh_exit();
 }

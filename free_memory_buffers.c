@@ -19,3 +19,13 @@ void free_memory_buffers(char **buf)
 	free(buf);
 
 }
+/**
+ * mysh_exit - close the shell
+ * Return: always 0
+ */
+
+int mysh_exit(void)
+{
+	exit(0);
+}
+
