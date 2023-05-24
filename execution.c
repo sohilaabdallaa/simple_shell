@@ -16,7 +16,7 @@ void execution(char *conpath, char **arra, int lineNumber)
 	child_pid = fork();
 
 	if (child_pid < 0)
-		perror(conpath);
+		fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
 	if (child_pid == 0)
 	{
 		execve(conpath, arra, env);
