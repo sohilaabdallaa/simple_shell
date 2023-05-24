@@ -30,7 +30,7 @@ signal(SIGINT, handle_interrupt_signal);
 			lline[linesize - 1] = '\0';
 		commd = tokenize_user_input(lline);
 		if ((_strcmp("exit", commd[0]) == 0))
-			mysh_exit();
+			execute_exit_command(commd, lline);
 		if (commd == NULL || *commd == NULL || **commd == '\0')
 			continue;
 		if (check_builtin_commands(commd, lline, lineNumber))
