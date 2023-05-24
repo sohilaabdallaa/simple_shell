@@ -11,7 +11,7 @@ int handle_builtin_command(char **commd, char *lline)
 {
 	struct shel_built shel_built = {"environment_command", "exit_shell_command"};
 
-	if (_strcmp(*commd, shel_built.environment_command) == 0)
+	if (_strcmp(*commd, "env") == 0)
 	{
 		print_environment_variables();
 		return (1);
