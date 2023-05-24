@@ -3,6 +3,7 @@
  * check_builtin_commands- checks to see weather its a built in function
  * @c: tokenized user input
  * @buf: line drived fromgetline function
+ * @lineNumber : interger tell us the order of current input line.
  * Return: 1 if c excuted 0 if c is not executed
  */
 
