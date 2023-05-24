@@ -1,0 +1,10 @@
+#!/bin/bash
+for filename in ./*.c *.h
+do
+vim -ec "normal gg=G" +"wq" $filename
+done
+
+for filename in ./*.c ./*.h
+do
+echo $filename fixed
+done
