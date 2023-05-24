@@ -8,23 +8,23 @@
  * Return: Always 0 (Success)
  */
 
-int main(int ac, char **av, char *envp[])
+int main(void)
 {
 	char *lline = NULL, *patthcommd = NULL, *patth = NULL;
 	size_t bufsize = 0;
 	ssize_t linesize = 0;
 	int lineNumber = 0;
 	char **commd = NULL, **paths = NULL;
-	(void)envp, (void)av;
-	if (ac < 1)
-		return (-1);
+
 signal(SIGINT, handle_interrupt_signal);
 	while (1)
 	{
 		lineNumber++, shell_info.line_count++;
 		display_command_prompt();
 		linesize = getline(&lline, &bufsize, stdin);
-		if (linesize < 0 || checkspace(lline) == true)
+		if (linesize < 0)
+			break;
+		if (checkspace(lline) == true)
 			continue;
 		if (lline[linesize - 1] == '\n')
 			lline[linesize - 1] = '\0';
@@ -51,4 +51,3 @@ signal(SIGINT, handle_interrupt_signal);
 	free(patthcommd);
 	return (0);
 }
-
