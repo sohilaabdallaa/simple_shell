@@ -39,7 +39,7 @@ char **tokenize_user_input(char *lline)
 			return (NULL);
 		}
 		token = strtok(NULL, delim);
-[O		index++;
+		index++;
 	}
 	tokens[index] = '\0';
 	free(buf);

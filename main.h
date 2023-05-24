@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,9 +15,9 @@
 /* environment variables */
 extern char **environ;
 extern __sighandler_t signal(int __sig, __sighandler_t __handler);
-
+extern int errno;
 /* handle built-ins */
-int check_builtin_commands(char **c, char *buf);
+int check_builtin_commands(char **c, char *buf, int lineNumber);
 void display_command_prompt(void);
 void handle_interrupt_signal(int m);
 char **tokenize_user_input(char *lline);
@@ -34,7 +35,7 @@ int _strncmp(char *stringone, char *stringtwo, int n);
 char *_strdup(char *string);
 char *_strchr(char *string, char chara);
 
-void execution(char *conpath, char **arra);
+void execution(char *conpath, char **arra, int lineNumber);
 char *find_path(void);
 
 /* helper function for efficient memory deallocation */

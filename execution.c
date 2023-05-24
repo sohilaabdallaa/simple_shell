@@ -7,7 +7,7 @@
  * Return: void
  */
 
-void execution(char *conpath, char **arra)
+void execution(char *conpath, char **arra, int lineNumber)
 {
 	pid_t child_pid;
 	int stat;
@@ -20,7 +20,7 @@ void execution(char *conpath, char **arra)
 	if (child_pid == 0)
 	{
 		execve(conpath, arra, env);
-		perror(conpath);
+		fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
 		free(conpath);
 		free_memory_buffers(arra);
 		exit(98);

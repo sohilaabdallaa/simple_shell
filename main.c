@@ -12,6 +12,7 @@ int main(int ac, char **av, char *envp[])
 {
 	char *lline = NULL, *patthcommd = NULL, *patth = NULL;
 	size_t bufsize = 0;
+	int lineNumber = 0;
 	ssize_t linesize = 0;
 	char **commd = NULL, **paths = NULL;
 	(void)envp, (void)av;
@@ -20,9 +21,7 @@ int main(int ac, char **av, char *envp[])
 signal(SIGINT, handle_interrupt_signal);
 	while (1)
 	{
-		free_memory_buffers(commd);
-		free_memory_buffers(paths);
-		free(patthcommd);
+		lineNumber++;
 		display_command_prompt();
 		linesize = getline(&lline, &bufsize, stdin);
 		if (linesize < 0)
@@ -33,19 +32,22 @@ signal(SIGINT, handle_interrupt_signal);
 		commd = tokenize_user_input(lline);
 		if (commd == NULL || *commd == NULL || **commd == '\0')
 			continue;
-		if (check_builtin_commands(commd, lline))
+		if (check_builtin_commands(commd, lline, lineNumber))
 			continue;
 		patth = find_path();
 			paths = tokenize_user_input(patth);
 		patthcommd = test_path(paths, commd[0]);
 		if (!patthcommd)
-			perror(av[0]);
+			fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
 		else
-			execution(patthcommd, commd);
+			execution(patthcommd, commd, lineNumber);
 	}
 	if (linesize < 0 && shell_flags.is_interactive_shell)
 		write(STDERR_FILENO, "\n", 1);
 	free(lline);
+	free_memory_buffers(commd);
+	free_memory_buffers(paths);
+	free(patthcommd);
 	return (0);
 }
 
