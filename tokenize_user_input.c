@@ -10,7 +10,7 @@ char **tokenize_user_input(char *lline)
 	char *buf = NULL, *bufp = NULL, *token = NULL, *delim = " :\t\r\n";
 	char **tokens = NULL;
 	int tokensize = 1;
-	size_t index = 0, flag = 0;
+	size_t index = 0, flag = 0, i = 0;
 
 	buf = _strdup(lline);
 	if (!buf)
@@ -35,7 +35,10 @@ char **tokenize_user_input(char *lline)
 		tokens[index] = _strdup(token);
 		if (tokens[index] == NULL)
 		{
+			for (i = 0; i < index; i++)
+				free(tokens[i]);
 			free(tokens);
+			free(buf);
 			return (NULL);
 		}
 		token = strtok(NULL, delim);

@@ -39,12 +39,12 @@ signal(SIGINT, handle_interrupt_signal);
 			fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
 		else
 			execution(patthcommd, commd, lineNumber);
+		free_memory_buffers(commd);
+		free_memory_buffers(paths);
+		free(patthcommd);
 	}
+	free(lline);
 	if (linesize < 0 && shell_flags.is_interactive_shell)
 		write(STDERR_FILENO, "\n", 1);
-	free(lline);
-	free_memory_buffers(commd);
-	free_memory_buffers(paths);
-	free(patthcommd);
 	return (0);
 }
