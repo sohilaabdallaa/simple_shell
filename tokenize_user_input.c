@@ -9,33 +9,23 @@ char **tokenize_user_input(char *lline)
 {
 	char *buf = NULL, *bufp = NULL, *token = NULL, *delim = " :\t\r\n";
 	char **tokens = NULL;
-	int tokensize = 1;
-	size_t index = 0, flag = 0, i = 0;
+	size_t index = 0, flag = 0, i = 0, tokensize = 1;
 
 	buf = _strdup(lline);
 	if (!buf)
-	{
-		free(buf);
-		return (NULL);
-	}
+		return (isnull(buf));
 	bufp = buf;
 	while (*bufp)
 	{
 		if (_strchr(delim, *bufp) != NULL && flag == 0)
-		{
-			tokensize++;
-			flag = 1;
-		}
+			tokensize++, flag = 1;
 		else if (_strchr(delim, *bufp) == NULL && flag == 1)
 			flag = 0;
 		bufp++;
 	}
 	tokens = malloc(sizeof(char *) * (tokensize + 1));
 	if (tokens == NULL)
-	{
-		free(buf);
 		return (NULL);
-	}
 	token = strtok(buf, delim);
 	while (token)
 	{
@@ -55,4 +45,19 @@ char **tokenize_user_input(char *lline)
 	free(buf);
 	return (tokens);
 }
+/**
+ * isnull - used to free the given pointer.
+ * @pointer: pointer to char array .
+ * Return: if pointer is null
+ */
+char **isnull(char *pointer)
+{
+	char **ptr = NULL;
 
+	if (pointer == NULL)
+	{
+		free(pointer);
+		return (NULL);
+	}
+	return (ptr);
+}

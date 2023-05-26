@@ -28,11 +28,13 @@ char *append_to_path_string(char *patth, char *commd)
 		buf[i] = '/';
 		i++;
 	}
-		while (commd[j])
-		{
-			buf[i + j] = commd[j];
-			j++;
-		}
-		buf[i + j] = '\0';
-		return (buf);
+	while (commd[j])
+	{
+		buf[i + j] = commd[j];
+		j++;
+	}
+	buf[i + j] = '\0';
+	return (buf);
+	free(buf);
+	return (NULL);
 }

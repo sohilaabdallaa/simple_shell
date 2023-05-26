@@ -35,15 +35,15 @@ signal(SIGINT, handle_interrupt_signal);
 		if (check_builtin_commands(commd, lline, lineNumber))
 			continue;
 		patth = find_path();
-			paths = tokenize_user_input(patth);
+		paths = tokenize_user_input(patth);
 		patthcommd = test_path(paths, commd[0]);
 		if (!patthcommd)
-			fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
+			fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));	
 		else
 			execution(patthcommd, commd, lineNumber);
+		free(patthcommd);
 	}
 	free(lline);
-	free(patthcommd);
 	if (linesize < 0 && shell_flags.is_interactive_shell)
 		write(STDERR_FILENO, "\n", 1);
 	return (0);

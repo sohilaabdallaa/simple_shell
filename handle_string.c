@@ -72,7 +72,7 @@ char *_strdup(char *string)
 	if (!pointer)
 		return (NULL);
 	for (m = 0; *string != '\0'; string++, m++)
-		pointer[m] = string[0];
+		pointer[m] = *string;
 	pointer[m++] = '\0';
 	return (pointer);
 }

@@ -10,14 +10,20 @@ char *test_path(char **patth, char *commd)
 {
 	int i = 0;
 	char *output;
+	int path_found = 0;
 
 	while (patth[i])
 	{
 		output = append_to_path_string(patth[i], commd);
 		if (access(output, F_OK | X_OK) == 0)
-			return (output);
+		{
+			path_found = 1;
+			break;
+		}
 		free(output);
 		i++;
 	}
-	return (NULL);
+	if (!path_found)
+		output = NULL;
+	return (output);
 }
