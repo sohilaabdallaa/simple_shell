@@ -38,7 +38,7 @@ signal(SIGINT, handle_interrupt_signal);
 		paths = tokenize_user_input(patth);
 		patthcommd = test_path(paths, commd[0]);
 		if (!patthcommd)
-			fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));	
+			fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
 		else
 			execution(patthcommd, commd, lineNumber);
 		free(patthcommd);
