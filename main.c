@@ -14,8 +14,10 @@ int main(void)
 	char **commd = NULL, **paths = NULL;
 
 signal(SIGINT, handle_interrupt_signal);
-	while (1)
+	while (linesize >= 0)
 	{
+		free_memory_buffers(commd);
+		free_memory_buffers(paths);
 		lineNumber++, shell_info.line_count++;
 		display_command_prompt();
 		linesize = getline(&lline, &bufsize, stdin);
@@ -39,11 +41,9 @@ signal(SIGINT, handle_interrupt_signal);
 			fprintf(stderr, "./hsh: %d:%s\n", lineNumber, strerror(errno));
 		else
 			execution(patthcommd, commd, lineNumber);
-		free_memory_buffers(commd);
-		free_memory_buffers(paths);
-		free(patthcommd);
 	}
 	free(lline);
+	free(patthcommd);
 	if (linesize < 0 && shell_flags.is_interactive_shell)
 		write(STDERR_FILENO, "\n", 1);
 	return (0);

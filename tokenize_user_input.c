@@ -14,9 +14,11 @@ char **tokenize_user_input(char *lline)
 
 	buf = _strdup(lline);
 	if (!buf)
+	{
+		free(buf);
 		return (NULL);
+	}
 	bufp = buf;
-
 	while (*bufp)
 	{
 		if (_strchr(delim, *bufp) != NULL && flag == 0)
@@ -29,6 +31,11 @@ char **tokenize_user_input(char *lline)
 		bufp++;
 	}
 	tokens = malloc(sizeof(char *) * (tokensize + 1));
+	if (tokens == NULL)
+	{
+		free(buf);
+		return (NULL);
+	}
 	token = strtok(buf, delim);
 	while (token)
 	{
